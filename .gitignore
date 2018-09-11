@@ -1,0 +1,11 @@
+*.pyc
+*_plugins_small.txt
+*_versions.txt
+*_defaultfiles.txt
+*_defaultfolders.txt
+cmsmap/tmp/
+cmsmap/__pycache__/
+*.egg-info
+.vscode
+build
+dist
