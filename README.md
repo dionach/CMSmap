@@ -92,7 +92,7 @@ Usage
 Contribution guidelines
 =====
 If you want to contribute to CMSmap, be sure to review the [contribution
-guidelines](CONTRIBUTING.md).
+guidelines](.github/CONTRIBUTING.md).
 
 
 Disclaimer
