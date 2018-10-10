@@ -22,6 +22,7 @@ class CoreUpdate:
         self.dru_plugins_small = initializer.dru_plugins_small
         self.dru_versions = initializer.dru_versions
         self.moo_versions = initializer.moo_versions
+        self.ospath = initializer.ospath
 
     # Force update of plugins from the local exploit-db, fetch the CMSs versions from remote Git
     # and run git pull from CMSmap git repo
