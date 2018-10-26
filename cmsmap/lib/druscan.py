@@ -68,7 +68,6 @@ class DruScan:
         pattern = re.compile(regex)
         version = re.findall(pattern, requester.htmltext)
         if version:
-            self.DruVersion = version[0]
             msg = "Drupal Version: " + version[0]
             report.info(msg)
             if version[0] in self.versions:
