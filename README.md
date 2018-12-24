@@ -1,6 +1,12 @@
 CMSmap
 ======
 
+[![Build Status](https://img.shields.io/github/forks/Dionach/CMSmap.svg)](https://github.com/Dionach/CMSmap)
+[![Build Status](https://img.shields.io/github/stars/Dionach/CMSmap.svg)](https://github.com/Dionach/CMSmap)
+[![License](https://img.shields.io/github/license/Dionach/CMSmap.svg)](https://github.com/Dionach/CMSmap)
+[![GitHub version](https://badge.fury.io/gh/Dionach%2FCMSmap.svg)](https://badge.fury.io/gh/Dionach%2FCMSmap)
+[![Rawsec's CyberSecurity Inventory](https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_flat.svg)](https://inventory.rawsec.ml/tools.html#CMSmap)
+
 CMSmap is a python open source CMS scanner that automates the process of detecting security flaws of the most popular CMSs. The main purpose of CMSmap is to integrate common vulnerabilities for different types of CMSs in a single tool.
 
 At the moment, CMSs supported by CMSmap are WordPress, Joomla, Drupal and Moodle.
