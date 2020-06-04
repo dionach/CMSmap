@@ -162,8 +162,10 @@ def main():
                 msg = str(e)
                 report.error(msg)
     else:
-        if args.target.endswith("/"):
-            args.target = args.target[:-1]
+        if 'http://' in args.target or 'https://' in args.target:
+            args.target = args.target.split('//')[1].strip('/')
+        else:
+            args.target = args.target.strip('/')
         try:
             addr = socket.gethostbyname(urlparse(args.target).hostname)
             initializer.url = genericchecker.url = scanner.url = bruter.url = searcher.url = args.target
