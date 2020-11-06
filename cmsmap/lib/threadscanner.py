@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-import urllib, http.client, threading, time, socket
+import urllib, http.client, threading, time, socket, urllib.parse
 
 # Import Object
 from .initialize import initializer
@@ -17,7 +17,7 @@ class ThreadScanner(threading.Thread):
         threading.Thread.__init__(self)
         self.url = url
         self.q = q
-        self.pluginPath = pluginPath
+        self.pluginPath = urllib.parse.quote(pluginPath)
         self.pluginsFound = pluginsFound
         self.pluginPathEnd = pluginPathEnd
         self.notExistingCode = notExistingCode
@@ -26,7 +26,7 @@ class ThreadScanner(threading.Thread):
     def run(self):
         while True:
             # Get plugin from plugin queue
-            plugin = self.q.get()
+            plugin = urllib.parse.quote(self.q.get())
             requester.request(self.url + self.pluginPath + plugin + self.pluginPathEnd, data=None)
             if requester.status_code == 200 and len(requester.htmltext) not in self.notValidLen:
                 self.pluginsFound.append(plugin)
