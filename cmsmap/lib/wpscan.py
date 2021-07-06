@@ -89,7 +89,7 @@ class WPScan:
             msg = "Wordpress Version: " + self.currentVer[0]
             report.info(msg)
         else:
-            requester.request(self.url, data=None)           
+            requester.request(self.url, data=None)
             self.currentVer = re.findall('<meta name="generator" content="WordPress (\d+\.\d+[\.\d+]*)"', requester.htmltext)
             if self.currentVer:
                 msg = "Wordpress Version: " + self.currentVer[0]
@@ -146,7 +146,7 @@ class WPScan:
     def WPFeed(self):
         msg = "Enumerating Wordpress usernames via \"Feed\" ..."
         report.verbose(msg)
-        requester.request(self.url + self.feed, data=None) 
+        requester.request(self.url + self.feed, data=None)
         wpUsers = re.findall("<dc:creator>[<!\[CDATA\[]*(.+?)[\]\]>]*</dc:creator>",
             requester.htmltext)
         if wpUsers:
@@ -178,18 +178,18 @@ class WPScan:
         report.verbose(msg)
         # Use an invalid, not-existing, not-registered user
         self.postdata = {"user_login": "N0t3xist!1234"}
-        requester.request(self.url + self.forgottenPsw, data=self.postdata)  
+        requester.request(self.url + self.forgottenPsw, data=self.postdata)
         if re.findall(re.compile('Invalid username'), requester.htmltext):
             msg = "Forgotten Password Allows Username Enumeration: " + self.url + self.forgottenPsw
             report.info(msg)
 
     # Find full path via the default hello plugin
     def WPHello(self):
-        requester.request(self.url + "/wp-content/plugins/hello.php", data=None) 
+        requester.request(self.url + "/wp-content/plugins/hello.php", data=None)
         fullPath = re.findall(re.compile('Fatal error.*>/(.+?/)hello.php'), requester.htmltext)
         if fullPath:
             msg = "Wordpress Hello Plugin Full Path Disclosure: " + "/" + fullPath[0] + "hello.php"
-            report.low(msg)        
+            report.low(msg)
 
     # Find directory listing in default directories and plugin directories
     def WPDirsListing(self):
@@ -207,7 +207,7 @@ class WPScan:
     def WPpluginsIndex(self):
         msg = "Checking WordPress plugins in the index page"
         report.verbose(msg)
-        requester.request(self.url, data=None) 
+        requester.request(self.url, data=None)
         self.pluginsFound = re.findall(re.compile('/wp-content/plugins/(.+?)/'), requester.htmltext)
 
     # Find plugins via a dictionary attack
@@ -241,7 +241,7 @@ class WPScan:
             requester.request(self.url+self.pluginPath+pluginFound+"/readme.txt", data=None)
             pluginVer = re.findall('Stable tag: (\d+\.\d+[\.\d+]*)', requester.htmltext)
             # Add plugin version
-            if pluginVer : 
+            if pluginVer :
                 self.pluginsFoundVers[pluginFound] = pluginVer[0]
             else:
                 # Match has not been found
@@ -303,7 +303,8 @@ class WPScan:
                         <param><value><string>ThisIsATest</string></value></param></params></methodCall>
                         '''
         requester.request(self.url + '/xmlrpc.php', data = self.postdata)
-        if re.search('<value><string>XML-RPC services are disabled', requester.htmltext):
+        if re.search('<value><string>XML-RPC services are disabled', requester.htmltext) or (
+                500 > requester.status_code >= 400):
             msg = "XML-RPC services are disabled"
             report.verbose(msg)
             self.XMLRPCEnable = False

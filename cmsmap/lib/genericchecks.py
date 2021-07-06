@@ -46,10 +46,10 @@ class GenericChecks:
         report.verbose(msg)
         requester.request(self.url + self.relPath, data=None)
         dirList = re.search("<title>Index of", requester.htmltext, re.IGNORECASE)
-        if dirList: 
+        if dirList:
             msg = self.url + self.relPath
             report.low(msg)
-        
+
     # Check if website is over HTTPS
     def HTTPSCheck(self):
         msg = "Checking if the website is in HTTPS ..."
@@ -86,7 +86,7 @@ class GenericChecks:
             msg = "X-XSS-Protection Disabled"
             report.high(msg)
         if not requester.response.info().get('x-frame-options') or (
-                requester.response.info().get('x-frame-options').lower() != 'sameorigin' or 'deny'):
+                requester.response.info().get('x-frame-options').lower() not in ['sameorigin', 'deny']):
             msg = "X-Frame-Options: Not Enforced"
             report.low(msg)
         if not requester.response.info().get('strict-transport-security'):
@@ -98,7 +98,7 @@ class GenericChecks:
         if not requester.response.info().get('x-content-type-options'):
             msg = "X-Content-Type-Options: Not Enforced"
             report.info(msg)
-        
+
     # Check if AutoComplete is set to Off on login pages
     def AutocompleteOff(self, relPath):
         msg = "Checking Autocomplete Off on the login page ..."
@@ -109,7 +109,7 @@ class GenericChecks:
         if not autoComp:
             msg = "Autocomplete Off Not Found: " + self.url + self.relPath
             report.info(msg)
-        
+
     # Check if robots.txt is available
     def RobotsTXT(self):
         msg = "Checking Robots.txt File ..."
@@ -121,7 +121,7 @@ class GenericChecks:
         else:
             msg = "No Robots.txt Found"
             report.low(msg)
-            
+
 
     # Extract error codes and page length from a not existing web page
     def NotExistingURL(self):
@@ -151,7 +151,7 @@ class GenericChecks:
             # Add all plugins to the queue
             for commFilesIndex, file in enumerate(self.commFiles):
                 q.put(file + ext)
-                sys.stdout.write("\r" + str((100 * ((len(self.commFiles) * extIndex) + commFilesIndex) / 
+                sys.stdout.write("\r" + str((100 * ((len(self.commFiles) * extIndex) + commFilesIndex) /
                                 (len(self.commFiles) * len(self.commExt)))) + "% " + file +  ext + "            ")
                 sys.stdout.flush()
             q.join()
