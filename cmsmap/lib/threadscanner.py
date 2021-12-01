@@ -26,7 +26,9 @@ class ThreadScanner(threading.Thread):
     def run(self):
         while True:
             # Get plugin from plugin queue
-            plugin = self.q.get()
+            plugin = urllib.parse.quote(self.q.get())
+
+
             requester.request(self.url + self.pluginPath + plugin + self.pluginPathEnd, data=None)
             if requester.status_code == 200 and len(requester.htmltext) not in self.notValidLen:
                 self.pluginsFound.append(plugin)

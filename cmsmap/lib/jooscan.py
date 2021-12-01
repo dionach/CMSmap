@@ -18,7 +18,7 @@ class JooScan:
     def __init__(self):
         self.url = None
         self.usernames = []
-        self.pluginPath = "?option="
+        self.pluginPath = "/?option="
         self.pluginsFound = []
         self.notValidLen = []
         self.notExistingCode = 404
