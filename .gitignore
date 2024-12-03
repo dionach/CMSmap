@@ -9,3 +9,4 @@ cmsmap/__pycache__/
 .vscode
 build
 dist
+.ropeproject
